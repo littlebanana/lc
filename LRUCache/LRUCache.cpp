@@ -5,42 +5,43 @@
 
 using namespace std;
 
-class LRUCache{
+class LRUCache
+{
     public:
-        LRUCache(int capacity) : heap(capacity), max(0), cnt(0) {
-        }
+        LRUCache(int capacity) : heap(capacity), max(0), cnt(0) {}
 
-        int get(int key) {
+        int get(int key)
+        {
             unordered_map<int,int>::iterator it = table.find(key);
             if (it != table.end())
             {
                 int idx = it->second;
                 int value = heap[idx].value;
                 heap[idx].priority = (++max);
-
                 idx = popdown(idx);
                 //it->second = idx;
+                table[heap[idx].key] = idx;
                 return value;
             }
             else
             {
-                cout << "here" << endl;
+                return -1;
             }
         }
 
-        void set(int key, int value) {
-            cout << "set(" << key << "," << value << ")" << endl;
+        void set(int key, int value)
+        {
             unordered_map<int,int>::iterator it = table.find(key);
             if (it != table.end())
             {
                 int idx = it->second;
+                heap[idx].key = key;
                 heap[idx].value = value;
                 heap[idx].priority = (++max);
 
                 idx = popdown(idx);
-                it->second = idx;
-                cout << "key = " << it->first;
-                cout << "idx = " << it->second << endl;
+                table[heap[idx].key] = idx;
+                //it->second = idx;
             }
             else
             {
@@ -53,9 +54,8 @@ class LRUCache{
                     heap[0].priority = (++max);
 
                     int idx = popdown(0);
+                    table[heap[idx].key] = idx;
                     //table.insert(pair<int,int>(key,idx));
-                    cout << "key = " << key;
-                    cout << "idx = " << idx << endl;
                 }
                 else
                 {
@@ -63,15 +63,9 @@ class LRUCache{
                     heap[cnt-1].key = key;
                     heap[cnt-1].value = value;
                     heap[cnt-1].priority = (++max);
-                    table.insert(pair<int,int>(key, cnt-1));
-                    cout << "key = " << key;
-                    cout << "idx = " << cnt-1 << endl;
+                    table[key] = cnt-1;
+                    //table.insert(pair<int,int>(key, cnt-1));
                 }
-            }
-
-            for (int i = 0; i < cnt; i++)
-            {
-                cout << "(" << heap[i].key << "," << heap[i].value << ")" << endl;
             }
         }
 
