@@ -1,3 +1,7 @@
+// Given a string S, find the longest palindromic substring in S.
+// You may assume that the maximum length of S is 1000,
+// and there exists one unique longest palindromic substring.
+
 #include <iostream>
 
 using namespace std;
@@ -51,34 +55,25 @@ class Solution
         // O(1) space, O(N^2) complexity
         string longestPalindrome2(string s) 
         {
-            if (s.empty())
-            {
-                return "";
-            }
-
-            int L = s.length();
-
-            int len = 1;
+            int len = 0;
             int start = 0;
-            for (int k = 0; k < 2*L-1; k++)
+            int l = s.length();
+            for (int i = 0; i < 2*l-1; i++)
             {
-                int center = k / 2;
-                int p = (k % 2 == 0) ? center-1 : center;
-                int q = center+1;
-                int l = (k % 2 == 0) ? 1 : 0;
-                while (p >= 0 && q < L && s[p] == s[q])
+                int p = (i % 2 == 0 ? (i/2-1) : i/2);
+                int q = i/2 + 1;
+                while (p >= 0 && q < l && s[p] == s[q])
                 {
-                    l += 2;
                     p--;
                     q++;
                 }
-                if (l > len)
+                if (len < q-p-1)
                 {
-                    len = l;
-                    start = p + 1; 
+                    start = p+1;
+                    len = q-p-1;
                 }
             }
-            return s.substr(start, len);
+            return s.substr(start,len);
         }
 
         // Approach 3: Manacher's algorithm

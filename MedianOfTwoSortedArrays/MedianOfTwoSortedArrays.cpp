@@ -1,3 +1,7 @@
+// There are two sorted arrays A and B of size m and n respectively.
+// Find the median of the two sorted arrays.
+// The overall run time complexity should be O(log (m+n)).
+
 #include <iostream>	    // cout
 #include <algorithm>	// min
 
@@ -7,6 +11,9 @@ class Solution
 {
     public:
         // Approach 1
+        // Complexity: at worse case
+        //             T(m+n) = T(m/2+n) + O(1) = T(m/2+n/2) + O(1) + O(1)
+        //                    = logm + logn = log(mn) <= log(m+n)^2 = 2log(m+n)
         double findKthElementSortedArrays(int A[], int m, int B[], int n, int k)
         {
             if (m > n)
