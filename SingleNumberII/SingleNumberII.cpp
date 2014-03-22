@@ -1,3 +1,7 @@
+// Given an array of integers, every element appears three times except for one. Find that single one.
+// Note:
+// Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? 
+
 #include <iostream>
 
 using namespace std;
@@ -5,6 +9,9 @@ using namespace std;
 class Solution
 {
     public:
+        // ATTENTION: Always add parentheses embracing the bitwise operation before the boolean testing!!
+        // a & b != 0   -----> WRONG, equalvent to a & (b != 0)
+        // (a & b) != 0 -----> CORRECT
         int singleNumber1(int A[], int n)
         {
             int ones = 0;
@@ -77,7 +84,7 @@ class Solution
             {
                 cnt[j] = 0;
             }
-            
+
             int single = 0;
             for (int j = 0; j < l; j++)
             {
@@ -90,11 +97,27 @@ class Solution
             }
             return single;
         }
+
+        // clear verison using boolean algebra, un-simpified expression
+        int singleNumber4(int A[], int n) {
+            // ones = 1 when (ones, twos, A[i]) = (1,0,0) OR (0,0,1)
+            // twos = 1 when (ones, twos, A[i]) = (1,0,1) OR (0,1,0)
+            int ones = 0;
+            int twos = 0;
+            for (int i = 0; i < n; i++)
+            {
+                int ones_ = ((ones & ~twos & ~A[i]) | (~ones & ~twos & A[i]));
+                int twos_ = ((ones & ~twos & A[i]) | (~ones & twos & ~A[i]));
+                ones = ones_;
+                twos = twos_;
+            }
+            return ones;
+        }
 };
 
 int main()
 {
-   // int A[] = {1, 1, 1, 2, 4, 4, 4, 3, 3, 3};
+    // int A[] = {1, 1, 1, 2, 4, 4, 4, 3, 3, 3};
     int A[] = {0, 1, 0, 1, 0, 1, 99};
 
     Solution solu;
