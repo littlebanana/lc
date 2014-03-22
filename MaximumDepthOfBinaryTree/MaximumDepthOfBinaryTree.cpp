@@ -1,9 +1,8 @@
-// Given a binary tree, find its minimum depth.
-// The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+// Given a binary tree, find its maximum depth.
+// The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
 
 #include <iostream>
 #include <queue>
-#include <climits>
 
 using namespace std;
 
@@ -16,8 +15,7 @@ struct TreeNode {
 
 class Solution {
     public:
-        // Approach 1: DFS
-        int findMinDepth1(TreeNode *root)
+        int findMaxDepth1(TreeNode *root)
         {
             if (root == NULL)
             {
@@ -29,21 +27,21 @@ class Solution {
             }
             else if (root->left == NULL)
             {
-                return (1 + findMinDepth1(root->right));
+                return (1 + findMaxDepth1(root->right));
             }
             else if (root->right == NULL)
             {
-                return (1 + findMinDepth1(root->left));
+                return (1 + findMaxDepth1(root->left));
             }
             else
             {
-                int l = findMinDepth1(root->left);
-                int r = findMinDepth1(root->right);
-                return (l > r ? r+1 : l+1);
+                int l = findMaxDepth1(root->left);
+                int r = findMaxDepth1(root->right);
+                return (l > r ? l+1 : r+1);
             }
         }
 
-        int findMinDepth2(TreeNode *root)
+        int findMaxDepth2(TreeNode *root)
         {
             if (root == NULL)
             {
@@ -55,19 +53,18 @@ class Solution {
             }
             else
             {
-                int l = findMinDepth2(root->left);
-                l = (l == 0 ? INT_MAX : l);
-                int r = findMinDepth2(root->right);
-                r = (r == 0 ? INT_MAX : r);
-                return (l > r ? r+1 : l+1);
+                int l = findMaxDepth2(root->left);
+                int r = findMaxDepth2(root->right);
+                return (l > r ? l+1 : r+1);
             }
         }
 
-        int minDepth1(TreeNode *root) {
-            return findMinDepth2(root);
+        // DFS
+        int maxDepth1(TreeNode *root) {
+            return findMaxDepth2(root);
         }
 
-        int minDepth2(TreeNode *root) {
+        int maxDepth2(TreeNode *root) {
             if (root == NULL)
             {
                 return 0;
@@ -75,21 +72,18 @@ class Solution {
 
             // BFS, level traversal
             queue<TreeNode*> Q;
-            int n = 1;
-            int d = 1;
             Q.push(root);
+            int d = 0;
+            int n = 1;
             while (!Q.empty())
             {
+                d++;
                 int cnt = 0;
                 for (int i = 0; i < n; i++)
                 {
                     TreeNode *t = Q.front();
                     Q.pop();
 
-                    if (t->left == NULL && t->right == NULL)
-                    {
-                        return d;
-                    }
                     if (t->left != NULL)
                     {
                         cnt++;
@@ -101,7 +95,6 @@ class Solution {
                         Q.push(t->right);
                     }
                 }
-                d++;
                 n = cnt;
             }
             return d;
@@ -158,7 +151,7 @@ int main()
     printTree(root);
 
     Solution solu;
-    cout << solu.minDepth2(root) << endl;
+    cout << solu.maxDepth2(root) << endl;
 
     destroyTree(root);
 
