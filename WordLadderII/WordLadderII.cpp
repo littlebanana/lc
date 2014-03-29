@@ -126,6 +126,148 @@ public:
     }
 };
 
+class Solution2 {
+public:
+    bool isNeighbor(string s1, string s2)
+    {
+        int l = s1.length();
+        for (int i = 0; i < l; i++)
+        {
+            char c = s1[i];
+            for (int j = 0; j < 26; j++)
+            {
+                if ('a'+j != c)
+                {
+                    s1[i] = 'a'+j;
+                    if (s1.compare(s2) == 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            s1[i] = c;
+        }
+        return false;
+    }
+    
+    void backtrack(string start, string end, const unordered_map<string, vector<string> > &prev, vector<string> path, vector<vector<string> > &paths)
+    {
+        if (end.compare(start) == 0)
+        {
+            paths.push_back(path);
+            return;
+        }
+        vector<string> neighbor = prev.find(end)->second;
+        int n = neighbor.size();
+        for (int i = 0; i < n; i++)
+        {
+            vector<string> tmp = path;
+            tmp.push_back(neighbor[i]);
+            backtrack(start, neighbor[i], prev, tmp, paths);
+        }
+    }
+
+    vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {
+        
+        int l = start.length();
+        
+        // level BFS
+        
+        unordered_set<string> visited;
+        unordered_map<string,int> dist;
+        unordered_map<string,vector<string> > prev;
+        
+        bool found = false;
+        queue<string> Q;
+        Q.push(start);
+        visited.insert(start);
+        dist.insert(pair<string,int>(start,1));
+        
+        int n = 1;
+        while (!Q.empty() && !found)
+        {
+            int cnt = 0;
+            for (int nn = 0; nn < n; nn++)
+            {
+                string word = Q.front();
+                Q.pop();
+                
+                int d = dist.find(word)->second;
+                
+                string next = word;
+                for (int i = 0; i < l; i++)
+                {
+                    char c = next[i];
+                    for (int j = 0; j < 26; j++)
+                    {
+                        if ('a'+j != c)
+                        {
+                            next[i] = 'a'+j;
+                            if (next.compare(end) == 0)
+                            {
+                                found = true;
+                                if (visited.find(end) == visited.end())
+                                {
+                                    vector<string> p;
+                                    p.push_back(word);
+                                    prev.insert(pair<string,vector<string> >(end,p));
+                                    visited.insert(end);
+                                    dist.insert(pair<string,int>(end,d+1));
+                                }
+                                else
+                                {
+                                    prev.find(end)->second.push_back(word);
+                                }
+                            }
+                            else
+                            {
+                                if (dict.find(next) != dict.end())
+                                {
+                                    if (visited.find(next) == visited.end())
+                                    {
+                                        vector<string> p;
+                                        p.push_back(word);
+                                        prev.insert(pair<string,vector<string> >(next,p));
+                                        visited.insert(next);
+                                        dist.insert(pair<string,int>(next,d+1));
+                                        Q.push(next);
+                                        cnt++;
+                                    }
+                                    else
+                                    {
+                                        int dd = dist.find(next)->second;
+                                        if (dd == d+1)
+                                        {
+                                            prev.find(next)->second.push_back(word);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    next[i] = c;
+                }
+            }
+            n = cnt;
+        }
+        
+        if (!found)
+        {
+            return vector<vector<string> >();
+        }
+        
+        vector<string> path;
+        path.push_back(end);
+        vector<vector<string> > paths;
+        backtrack(start, end, prev, path, paths);
+        for (int i = 0; i < paths.size(); i++)
+        {
+            reverse(paths[i].begin(), paths[i].end());
+        }
+        return paths;
+    }
+};
+
 int main()
 {
     Solution solu;
