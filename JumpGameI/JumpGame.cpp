@@ -14,17 +14,12 @@ class Solution {
     public:
         bool canJump(int A[], int n) {
             int far = 0;        // the farest element can be reached
-            for (int i = 0; i < n; i++)
-            {
-                if (i > far)
-                {
+            for (int i = 0; i < n; i++) {
+                if (i > far) {
                     return false;
-                }
-                else
-                {
+                } else {
                     far = max(far, A[i]+i);
-                    if (far >= n)
-                    {
+                    if (far >= n) {
                         return true;
                     }
                 }
@@ -33,8 +28,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     Solution solu;
 
     int A[5] = {2, 3, 1, 1 ,4};

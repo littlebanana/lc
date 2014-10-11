@@ -17,20 +17,18 @@ class Solution {
             int step = 0;
             int thisstep = 0;       // the farthest idx can be reached in current step
             int nextstep = 0;       // the farthest idx can be reached in the next step, keep updating while run through the array
-            for (int i = 0; i < n; i++)
-            {
-                if (i > thisstep)
-                {
+            for (int i = 0; i < n; i++) {
+                if (i > thisstep) {
+                    if (i > nextstep) {
+                        return -1;
+                    }
                     step++;
                     thisstep = nextstep;
-                    if (thisstep >= n-1)
-                    {
+                    if (thisstep >= n-1) {
                         return step;
                     }
                     nextstep = i + A[i];
-                }
-                else
-                {
+                } else {
                     nextstep = max(nextstep, i+A[i]);
                 }
             }
@@ -38,8 +36,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     int A[5] = {2, 3, 1, 1, 4};
 
     Solution solu;
