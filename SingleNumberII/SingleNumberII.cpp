@@ -6,18 +6,15 @@
 
 using namespace std;
 
-class Solution
-{
+class Solution {
     public:
         // ATTENTION: Always add parentheses embracing the bitwise operation before the boolean testing!!
         // a & b != 0   -----> WRONG, equalvent to a & (b != 0)
         // (a & b) != 0 -----> CORRECT
-        int singleNumber1(int A[], int n)
-        {
+        int singleNumber1(int A[], int n) {
             int ones = 0;
             int twos = 0;
-            for (int i = 0; i < n; i++)
-            {
+            for (int i = 0; i < n; i++) {
                 twos |= (ones & A[i]);
                 ones ^= A[i];
                 // if at anny digit, both twos and ones are set,
@@ -30,8 +27,7 @@ class Solution
             return ones;
         }
 
-        int singleNumber2(int A[], int n)
-        {
+        int singleNumber2(int A[], int n) {
             int ones = 0;
             int twos = 0;
 
@@ -65,8 +61,7 @@ class Solution
             //        = ~A[i]*~ones*twos + A[i]*ones*~twos
             //        = A[i]*ones ^ twos
 
-            for (int i = 0; i < n; i++)
-            {
+            for (int i = 0; i < n; i++) {
                 int ones_ = (A[i] ^ ones) & ~twos;
                 int twos_ = (~A[i] & ~ones & twos) | (A[i] & ones & ~twos);
                 ones = ones_;
@@ -75,21 +70,17 @@ class Solution
             return ones;
         }
 
-        int singleNumber3(int A[], int n)
-        {
-            const int l = 8*sizeof(int);    // convert number of bytes to bits
+        int singleNumber3(int A[], int n) {
+            const int l = 8 * sizeof(int);    // convert number of bytes to bits
             int cnt[l];
             // cnt[0...(l-1)]: LSB -> MSB
-            for (int j = 0; j < l; j++)
-            {
+            for (int j = 0; j < l; j++) {
                 cnt[j] = 0;
             }
 
             int single = 0;
-            for (int j = 0; j < l; j++)
-            {
-                for (int i = 0; i < n; i++)
-                {
+            for (int j = 0; j < l; j++) {
+                for (int i = 0; i < n; i++) {
                     cnt[j] += (A[i] >> j) & 1;
                 }
                 cnt[j] %= 3;
@@ -104,8 +95,7 @@ class Solution
             // twos = 1 when (ones, twos, A[i]) = (1,0,1) OR (0,1,0)
             int ones = 0;
             int twos = 0;
-            for (int i = 0; i < n; i++)
-            {
+            for (int i = 0; i < n; i++) {
                 int ones_ = ((ones & ~twos & ~A[i]) | (~ones & ~twos & A[i]));
                 int twos_ = ((ones & ~twos & A[i]) | (~ones & twos & ~A[i]));
                 ones = ones_;
@@ -115,8 +105,7 @@ class Solution
         }
 };
 
-int main()
-{
+int main() {
     // int A[] = {1, 1, 1, 2, 4, 4, 4, 3, 3, 3};
     int A[] = {0, 1, 0, 1, 0, 1, 99};
 

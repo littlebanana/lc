@@ -9,33 +9,38 @@ using namespace std;
 class Solution {
     public:
         int removeElement(int A[], int n, int elem) {
-            for (int i = 0; i < n; i++)
-            {
-                if (A[i] == elem)
-                {
+            for (int i = 0; i < n; i++) {
+                if (A[i] == elem) {
                     swap(A[i--], A[--n]);
                 }
             }
             return n;
         }
+
+        int removeElement2(int A[], int n, int elem) {
+            int l = -1;
+            for (int i = 0; i < n; i++) {
+                if (A[i] == elem) {
+                    swap(A[++l], A[i]);
+                }
+            }
+            return l + 1;
+        }
 };
 
-int main()
-{
+int main() {
     int A[] = {1, 1, 1};
 
     Solution solu;
     int n = solu.removeElement(A, 3, 1);
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cout << A[i] << " ";
     }
     cout << endl;
 
     int B[] = {1, 2, 2, 1, 1, 4};
     n = solu.removeElement(B, 6, 1);
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cout << B[i] << " ";
     }
     cout << endl;
