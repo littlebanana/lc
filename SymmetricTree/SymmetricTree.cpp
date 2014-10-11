@@ -27,57 +27,45 @@ struct TreeNode {
 
 class Solution {
     public:
-        bool isMirror(TreeNode *t1, TreeNode *t2)
-        {
-            if (t1 == NULL && t2 == NULL)
-            {
+        bool isMirror(TreeNode *t1, TreeNode *t2) {
+            if (t1 == NULL && t2 == NULL) {
                 return true;
             }
-            if (t1 == NULL || t2 == NULL || t1->val != t2->val)
-            {
+            if (t1 == NULL || t2 == NULL || t1->val != t2->val) {
                 return false;
             }
             return (isMirror(t1->left, t2->right) && isMirror(t1->right, t2->left));
         }
 
         bool isSymmetric(TreeNode *root) {
-            if (root == NULL)
-            {
+            if (root == NULL) {
                 return true;
             }
             return isMirror(root->left, root->right);
         }
 };
 
-void destroyTree(TreeNode *root)
-{
-    if (root != NULL)
-    {
+void destroyTree(TreeNode *root) {
+    if (root != NULL) {
         destroyTree(root->left);
         destroyTree(root->right);
         delete root;
     }
 }
 
-void printTree(TreeNode *root)
-{
+void printTree(TreeNode *root) {
     // print in level order
     queue<TreeNode *> Q;
     Q.push(root);
     int n = 1;
-    while (!Q.empty())
-    {
+    while (!Q.empty()) {
         int cnt = 0;
-        for (int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) {
             TreeNode *t = Q.front();
             Q.pop();
-            if (t == NULL)
-            {
+            if (t == NULL) {
                 cout << "# ";
-            }
-            else
-            {
+            } else {
                 cout << t->val << " ";
                 Q.push(t->left);
                 Q.push(t->right);
@@ -89,8 +77,7 @@ void printTree(TreeNode *root)
     }
 }
 
-int main()
-{
+int main() {
     TreeNode *root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->right = new TreeNode(2);

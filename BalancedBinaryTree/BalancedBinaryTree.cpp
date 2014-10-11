@@ -14,29 +14,18 @@ struct TreeNode {
 
 class Solution {
     public:
-        bool check(TreeNode *root, int &d)
-        {
-            if (root == NULL)
-            {
+        bool check(TreeNode *root, int &d) {
+            if (root == NULL) {
                 d = 0;
                 return true;
             }
 
             int ld = 0;
-            if (!check(root->left, ld))
-            {
-                return false;
-            }
             int rd = 0;
-            if (!check(root->right, rd))
-            {
+            if (!check(root->left, ld) || !check(root->right, rd) || ld + 1 < rd || rd + 1 < ld) {
                 return false;
             }
-            if (ld > rd+1 || rd > ld+1)
-            {
-                return false;
-            }
-            d = (ld > rd ? ld+1 : rd+1);
+            d = ((ld > rd) ? ld : rd) + 1;
             return true;
         }
 
@@ -46,10 +35,8 @@ class Solution {
         }
 };
 
-void destroyTree(TreeNode *root)
-{
-    if (root != NULL)
-    {
+void destroyTree(TreeNode *root) {
+    if (root != NULL) {
         destroyTree(root->left);
         destroyTree(root->right);
         delete root;
@@ -62,19 +49,14 @@ void printTree(TreeNode *root)
     queue<TreeNode *> Q;
     Q.push(root);
     int n = 1;
-    while (!Q.empty())
-    {
+    while (!Q.empty()) {
         int cnt = 0;
-        for (int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) {
             TreeNode *t = Q.front();
             Q.pop();
-            if (t == NULL)
-            {
+            if (t == NULL) {
                 cout << "# ";
-            }
-            else
-            {
+            } else {
                 cout << t->val << " ";
                 Q.push(t->left);
                 Q.push(t->right);
@@ -86,8 +68,7 @@ void printTree(TreeNode *root)
     }
 }
 
-int main()
-{
+int main() {
     TreeNode *root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->right = new TreeNode(3);

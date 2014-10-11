@@ -12,8 +12,7 @@ using namespace std;
 class Solution {
     public:
         string addBinary(string a, string b) {
-            if (a.length() < b.length())
-            {
+            if (a.length() < b.length()) {
                 swap(a, b);
             }
 
@@ -22,37 +21,24 @@ class Solution {
 
             int carry = 0;
             string result = a;
-            cout << result << endl;
-            for (int i = 0; i < lb; i++)
-            {
+            for (int i = 0; i < lb; i++) {
                 int digit = (result[la-1-i]-'0') + (b[lb-1-i]-'0') + carry;
-
                 result[la-1-i] = digit % 2 + '0';
                 carry = (digit >= 2 ? 1 : 0);
             }
-            cout << result << endl;
-            for (int i = la-1-lb; i >= 0; i--)
-            {
-                cout << "i = " <<i <<endl;
+            for (int i = la-1-lb; i >= 0; i--) {
                 int digit = (result[i]-'0') + carry;
-                cout << "digit = " <<digit << endl;
-
                 result[i] = digit % 2 + '0';
-
-                cout << result << endl;
                 carry = (digit >= 2 ? 1 : 0);
-                cout << "carry = " << carry <<endl;
-                if (carry == 0)
-                {
+                if (carry == 0) {
                     break;
                 }
             }
-            return (carry > 0 ? "1"+result : result);
+            return (carry > 0 ? ("1" + result) : result);
         }
 
         string addBinary2(string a, string b) {
-            if (a.length() < b.length())
-            {
+            if (a.length() < b.length()) {
                 swap(a, b);
             }
 
@@ -60,14 +46,12 @@ class Solution {
             int la = a.length();
             int lb = b.length();
             int carry = 0;
-            for (int i = 0; i < lb; i++)
-            {
+            for (int i = 0; i < lb; i++) {
                 int d = (sum[la-1-i]-'0') + (b[lb-1-i]-'0') + carry;
                 sum[la-1-i] = d % 2 + '0';
                 carry = (d >= 2 ? 1 : 0);
             }
-            for (int i = lb; i < la && carry > 0; i++)
-            {
+            for (int i = lb; i < la && carry > 0; i++) {
                 int d = (sum[la-1-i]-'0') + carry;
                 sum[la-1-i] = d % 2 + '0';
                 carry = (d >= 2 ? 1 : 0);
@@ -76,8 +60,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     string a = "11";
     string b = "1";
 

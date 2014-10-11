@@ -15,14 +15,11 @@ struct TreeNode {
 
 class Solution {
     public:
-        bool check(TreeNode *p, TreeNode *q)
-        {
-            if (p == NULL && q == NULL)
-            {
+        bool check(TreeNode *p, TreeNode *q) {
+            if (p == NULL && q == NULL) {
                 return true;
             }
-            if (p == NULL || q == NULL || p->val != q->val)
-            {
+            if (p == NULL || q == NULL || p->val != q->val) {
                 return false;
             }
             return (check(p->left, q->left) && check(p->right, q->right));
@@ -35,12 +32,10 @@ class Solution {
 
         // BFS
         bool isSameTree2(TreeNode *p, TreeNode *q) {
-            if (p == NULL && q == NULL)
-            {
+            if (p == NULL && q == NULL) {
                 return true;
             }
-            if (p == NULL || q == NULL)
-            {
+            if (p == NULL || q == NULL) {
                 return false;
             }
 
@@ -49,32 +44,26 @@ class Solution {
             queue<TreeNode*> Q2;
             Q1.push(p);
             Q2.push(q);
-            while (!Q1.empty() && !Q2.empty())
-            {
+            while (!Q1.empty() && !Q2.empty()) {
                 TreeNode *t1 = Q1.front();
                 Q1.pop();
                 TreeNode *t2 = Q2.front();
                 Q2.pop();
 
-                if (t1->val != t2->val)
-                {
+                if (t1->val != t2->val) {
                     return false;
                 }
-                if ((t1->left != NULL && t2->left == NULL) || (t1->left == NULL && t2->left != NULL))
-                {
+                if ((t1->left != NULL && t2->left == NULL) || (t1->left == NULL && t2->left != NULL)) {
                     return false;
                 }
-                if ((t1->right != NULL && t2->right == NULL) || (t1->right == NULL && t2->right != NULL))
-                {
+                if ((t1->right != NULL && t2->right == NULL) || (t1->right == NULL && t2->right != NULL)) {
                     return false;
                 }
-                if (t1->left != NULL && t2->left != NULL)
-                {
+                if (t1->left != NULL && t2->left != NULL) {
                     Q1.push(t1->left);
                     Q2.push(t2->left);
                 }
-                if (t1->right != NULL && t2->right != NULL)
-                {
+                if (t1->right != NULL && t2->right != NULL) {
                     Q1.push(t1->right);
                     Q2.push(t2->right);
                 }
@@ -83,35 +72,27 @@ class Solution {
         }
 };
 
-void destroyTree(TreeNode *root)
-{
-    if (root != NULL)
-    {
+void destroyTree(TreeNode *root) {
+    if (root != NULL) {
         destroyTree(root->left);
         destroyTree(root->right);
         delete root;
     }
 }
 
-void printTree(TreeNode *root)
-{
+void printTree(TreeNode *root) {
     // print in level order
     queue<TreeNode *> Q;
     Q.push(root);
     int n = 1;
-    while (!Q.empty())
-    {
+    while (!Q.empty()) {
         int cnt = 0;
-        for (int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) {
             TreeNode *t = Q.front();
             Q.pop();
-            if (t == NULL)
-            {
+            if (t == NULL) {
                 cout << "# ";
-            }
-            else
-            {
+            } else {
                 cout << t->val << " ";
                 Q.push(t->left);
                 Q.push(t->right);
@@ -123,9 +104,7 @@ void printTree(TreeNode *root)
     }
 }
 
-
-int main()
-{
+int main() {
     TreeNode *root1 = new TreeNode(1);
     root1->left = new TreeNode(2);
     root1->left->right = new TreeNode(3);

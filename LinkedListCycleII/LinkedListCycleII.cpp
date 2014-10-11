@@ -17,22 +17,18 @@ class Solution {
         ListNode *detectCycle(ListNode *head) {
             ListNode *fast = head;
             ListNode *slow = NULL;
-            while (fast != NULL && fast != slow)
-            {
-                if (fast->next == NULL)
-                {
-                    return NULL;
+            while (fast != NULL && fast->next != NULL) {
+                if (fast == slow) {
+                    break;
                 }
                 fast = fast->next->next;
                 slow = (slow == NULL ? head->next : slow->next);
             }
-            if (fast == NULL)
-            {
+            if (fast != slow) {
                 return NULL;
             }
             slow = head;
-            while (slow != fast)
-            {
+            while (slow != fast) {
                 slow = slow->next;
                 fast = fast->next;
             }
@@ -40,27 +36,22 @@ class Solution {
         }
 };
 
-void destroyList(ListNode *head, ListNode *node)
-{
+void destroyList(ListNode *head, ListNode *node) {
     bool first = false;
-    while (head != NULL)
-    {
+    while (head != NULL) {
         ListNode *tbd = head;
-        if (head == node)
-        {
+        if (head == node) {
             first = true;
         }
         head = head->next;
-        if (first && head == node)
-        {
+        if (first && head == node) {
            break; 
         }
         delete tbd;
     }
 }
 
-int main()
-{
+int main() {
     ListNode *head = new ListNode(1);
     head->next = new ListNode(2);
     head->next->next = new ListNode(3);
@@ -68,12 +59,9 @@ int main()
 
     Solution solu;
     ListNode *node = solu.detectCycle(head);
-    if (node == NULL)
-    {
+    if (node == NULL) {
         cout << "no cycle" << endl;
-    }
-    else
-    {
+    } else {
         cout << node->val << endl;
     }
 

@@ -13,10 +13,8 @@ class Solution {
 public:
     vector<int> getRow(int rowIndex) {
         vector<int> level(rowIndex+1, 1);
-        for (int i = 0; i <= rowIndex; i++)     // row index
-        {
-            for (int j = i-1; j >= 1; j--)
-            {
+        for (int i = 0; i <= rowIndex; i++) {
+            for (int j = i-1; j >= 1; j--) {
                 level[j] = level[j] + level[j-1];
             }
         }
@@ -32,8 +30,7 @@ int main()
     Solution solu;
     vector<int> level = solu.getRow(n);
 
-    for (int i = 0; i < level.size(); i++)
-    {
+    for (int i = 0; i < level.size(); i++) {
         cout << level[i] << " ";
     }
     cout << endl;

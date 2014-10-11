@@ -10,17 +10,15 @@ using namespace std;
 
 class Solution {
     public:
+        // test case: 1, 1, 1, 2, 2, 3
         int removeDuplicates(int A[], int n) {
-            if (n == 0)
-            {
+            if (n == 0) {
                 return 0;
             }
 
             int ok = 0;     // last index of the array which is sorted and without duplicates
-            for (int i = 1; i < n; i++)
-            {
-                if (A[ok] != A[i])
-                {
+            for (int i = 1; i < n; i++) {
+                if (A[ok] != A[i]) {
                     swap(A[++ok], A[i]);
                 }
             }
@@ -28,16 +26,14 @@ class Solution {
         }
 };
 
-int main()
-{
-    int A[] = {1, 1, 1, 2};
+int main() {
+    int A[] = {1, 1, 1, 2, 2, 3};
 
     Solution solu;
-    int n = solu.removeDuplicates(A, 4);
+    int n = solu.removeDuplicates(A, 6);
 
     cout << n << endl;
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cout << A[i] << " ";
     }
     cout << endl;

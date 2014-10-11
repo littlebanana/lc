@@ -11,49 +11,37 @@ using namespace std;
 class Solution {
     public:
         int removeDuplicates(int A[], int n) {
-            if (n < 3)
-            {
+            if (n < 3) {
                 return n;
             }
 
-            int sorted = 1;
-            int cnt = (A[0] == A[1] ? 2 : 1);
-            for (int i = 2; i < n; i++)
-            {
-                if (A[i] == A[sorted])
-                {
-                    if (cnt < 2)
-                    {
-                        cnt++;
-                        swap(A[i], A[++sorted]);
-                    }
-                }
-                else
-                {
+            int sorted = 0;
+            int cnt = 1;
+            for (int i = 1; i < n; i++) {
+                if (A[i] != A[sorted]) {
+                    swap(A[++sorted], A[i]);
                     cnt = 1;
-                    swap(A[i], A[++sorted]);
-                }
+                } else if (A[i] == A[sorted] && cnt == 1) {
+                    swap(A[++sorted], A[i]);
+                    cnt++;
+                } 
             }
-            return (sorted+1);
+            return (sorted + 1);
         }
 };
 
-void printArray(int A[], int n)
-{
+void printArray(int A[], int n) {
     cout << "[";
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cout << A[i];
-        if (i < n-1)
-        {
+        if (i < n-1) {
             cout << " ";
         }
     }
     cout << "]" << endl;
 }
 
-int main()
-{
+int main() {
     int n = 6;
     int A[] = {1, 1, 1, 2, 2, 3};
     printArray(A, n);

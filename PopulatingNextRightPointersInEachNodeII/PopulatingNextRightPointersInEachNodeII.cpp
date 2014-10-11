@@ -40,47 +40,30 @@ class Solution {
     public:
         void connect(TreeLinkNode *root) {
             TreeLinkNode *t = root;
-            while (t != NULL)
-            {
+            while (t != NULL) {
                 // populate one level lower
                 TreeLinkNode *next = NULL;      // parent level start point for next level iteration
                 TreeLinkNode *prev = NULL;
-                TreeLinkNode *p = t;
-                while (p != NULL)
-                {
-                    if (p->left != NULL)
-                    {
-                        if (prev == NULL)
-                        {
-                            prev = p->left;
-                        }
-                        else
-                        {
-                            prev->next = p->left;
-                            prev = p->left;
-                        }
-                        if (next == NULL)
-                        {
-                            next = p->left;
+                for (; t != NULL; t = t->next) {
+                    if (t->left != NULL) {
+                        if (prev == NULL) {
+                            prev = t->left;
+                            next = t->left;
+                        } else {
+                            prev->next = t->left;
+                            prev = t->left;
                         }
                     }
-                    if (p->right != NULL)
-                    {
+                    if (t->right != NULL) {
                         if (prev == NULL)
                         {
-                            prev = p->right;
-                        }
-                        else
-                        {
-                            prev->next = p->right;
-                            prev = p->right;
-                        }
-                        if (next == NULL)
-                        {
-                            next = p->right;
+                            prev = t->right;
+                            next = t->right;
+                        } else {
+                            prev->next = t->right;
+                            prev = t->right;
                         }
                     }
-                    p = p->next;
                 }
                 t = next;
             }
@@ -89,8 +72,7 @@ class Solution {
 
 void destroyTree(TreeLinkNode *root)
 {
-    if (root != NULL)
-    {
+    if (root != NULL) {
         destroyTree(root->left);
         destroyTree(root->right);
         delete root;
@@ -103,19 +85,14 @@ void printTree(TreeLinkNode *root)
     queue<TreeLinkNode *> Q;
     Q.push(root);
     int n = 1;
-    while (!Q.empty())
-    {
+    while (!Q.empty()) {
         int cnt = 0;
-        for (int i = 0; i < n; i++)
-        {
+        for (int i = 0; i < n; i++) {
             TreeLinkNode *t = Q.front();
             Q.pop();
-            if (t == NULL)
-            {
+            if (t == NULL) {
                 cout << "# ";
-            }
-            else
-            {
+            } else {
                 cout << t->val << " ";
                 Q.push(t->left);
                 Q.push(t->right);
@@ -127,13 +104,13 @@ void printTree(TreeLinkNode *root)
     }
 }
 
-int main()
-{
+int main() {
     TreeLinkNode *root = new TreeLinkNode(1);
     root->left = new TreeLinkNode(2);
     root->right = new TreeLinkNode(3);
     root->left->left = new TreeLinkNode(4);
     root->left->right = new TreeLinkNode(5);
+    root->right->left = new TreeLinkNode(6);
     root->right->right = new TreeLinkNode(7);
 
     printTree(root);
@@ -142,23 +119,18 @@ int main()
     solu.connect(root);
 
     TreeLinkNode *t = root;
-    while (t != NULL)
-    {
+    while (t != NULL) {
         TreeLinkNode *p = t;
         t = NULL;
-        while (p != NULL)
-        {
-            if (p->left != NULL && t == NULL)
-            {
+        while (p != NULL) {
+            if (p->left != NULL && t == NULL) {
                 t = p->left;
             }
-            if (p->right != NULL && t == NULL)
-            {
+            if (p->right != NULL && t == NULL) {
                 t = p->right;
             }
             cout << p->val << "->";
-            if (p->next == NULL)
-            {
+            if (p->next == NULL) {
                 cout << "NIL" << endl;
             }
             p = p->next;

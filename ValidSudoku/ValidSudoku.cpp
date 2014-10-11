@@ -12,17 +12,13 @@ using namespace std;
 
 class Solution {
     public:
-        bool isValidSite(const vector<vector<char> > &board, int ii, int jj)
-        {
+        bool isValidSite(const vector<vector<char> > &board, int ii, int jj) {
             // check row and row
-            for (int k = 0; k < 9; k++)
-            {
-                if (k != ii && board[k][jj] == board[ii][jj])
-                {
+            for (int k = 0; k < 9; k++) {
+                if (k != ii && board[k][jj] == board[ii][jj]) {
                     return false;
                 }
-                if (k != jj && board[ii][k] == board[ii][jj])
-                {
+                if (k != jj && board[ii][k] == board[ii][jj]) {
                     return false;
                 }
             }
@@ -30,15 +26,12 @@ class Solution {
             // check squares
             int idx_i = ii / 3;
             int idx_j = jj / 3;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
                     int p = 3*idx_i + i;
                     int q = 3*idx_j + j;
 
-                    if ((p != ii || q != jj) && board[p][q] == board[ii][jj])
-                    {
+                    if ((p != ii || q != jj) && board[p][q] == board[ii][jj]) {
                         return false;
                     }
                 }
@@ -51,12 +44,9 @@ class Solution {
         bool isValidSudoku(vector<vector<char> > &board) {
             assert(board.size() == 9 && board[0].size() == 9);
 
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 9; j++)
-                {
-                    if (board[i][j] != '.' && !isValidSite(board, i, j))
-                    {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (board[i][j] != '.' && !isValidSite(board, i, j)) {
                         return false;
                     }
                 }
@@ -71,25 +61,18 @@ class Solution {
             char checker[9] = {0};
 
             // check rows
-            for (int i = 0; i < 9; i++)
-            {
+            for (int i = 0; i < 9; i++) {
                 // clear table;
-                for (int j = 0; j < 9; j++)
-                {
+                for (int j = 0; j < 9; j++) {
                     checker[j] = 0;
                 }
 
-                for (int j = 0; j < 9; j++)
-                {
-                    if (board[i][j] != '.')
-                    {
+                for (int j = 0; j < 9; j++) {
+                    if (board[i][j] != '.') {
                         char c = board[i][j];
-                        if (checker[c-'1'] != 0)
-                        {
+                        if (checker[c-'1'] != 0) {
                             return false;
-                        }
-                        else
-                        {
+                        } else {
                             checker[c-'1'] = 1;
                         }
                     }
@@ -97,25 +80,18 @@ class Solution {
             }
 
             // check columns
-            for (int j = 0; j < 9; j++)
-            {
+            for (int j = 0; j < 9; j++) {
                 // clear table;
-                for (int i = 0; i < 9; i++)
-                {
+                for (int i = 0; i < 9; i++) {
                     checker[i] = 0;
                 }
 
-                for (int i = 0; i < 9; i++)
-                {
-                    if (board[i][j] != '.')
-                    {
+                for (int i = 0; i < 9; i++) {
+                    if (board[i][j] != '.') {
                         char c = board[i][j];
-                        if (checker[c-'1'] != 0)
-                        {
+                        if (checker[c-'1'] != 0) {
                             return false;
-                        }
-                        else
-                        {
+                        } else {
                             checker[c-'1'] = 1;
                         }
                     }
@@ -123,28 +99,19 @@ class Solution {
             }
 
             // check squares
-            for (int i = 0; i < 9; i += 3)
-            {
-                for (int j = 0; j < 9; j += 3)
-                {
-                    for (int k = 0; k < 9; k++)
-                    {
+            for (int i = 0; i < 9; i += 3) {
+                for (int j = 0; j < 9; j += 3) {
+                    for (int k = 0; k < 9; k++) {
                         checker[k] = 0;
                     }
 
-                    for (int p = 0; p < 3; p++)
-                    {
-                        for (int q = 0; q < 3; q++)
-                        {
-                            if (board[i+p][j+q] != '.')
-                            {
+                    for (int p = 0; p < 3; p++) {
+                        for (int q = 0; q < 3; q++) {
+                            if (board[i+p][j+q] != '.') {
                                 char c = board[i+p][j+q];
-                                if (checker[c-'1'] != 0)
-                                {
+                                if (checker[c-'1'] != 0) {
                                     return false;
-                                }
-                                else
-                                {
+                                } else {
                                     checker[c-'1'] = 1;
                                 }
                             }
@@ -157,8 +124,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     vector<vector<char> > board(9);
     char row1[] = {'.', '.', '.', '.', '.', '.', '.', '.', '1'};
     board[0].assign(row1, row1+9);
