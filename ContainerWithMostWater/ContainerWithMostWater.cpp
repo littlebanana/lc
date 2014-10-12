@@ -12,20 +12,18 @@ class Solution {
         int maxArea(vector<int> &height) {
             int n = height.size();
             int p = 0;
-            int q = n-1;
+            int q = n - 1;
             int maxA = 0;
-            while (p < q)
-            {
+            while (p < q) {
                 int w = q - p;
                 int h = (height[p] > height[q] ? height[q--] : height[p++]);
-                maxA = max(maxA, h*w);
+                maxA = max(maxA, h * w);
             }
             return maxA;
         }
 };
 
-int main()
-{
+int main() {
     vector<int> bars;
     bars.push_back(1);
     bars.push_back(4);

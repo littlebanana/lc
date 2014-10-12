@@ -13,30 +13,20 @@ class Solution {
             string roman;
             int i = 0;
             int pow10 = 10*10*10;
-            while (num != 0)
-            {
+            while (num != 0) {
                 int digit = num / pow10;
 
-                if (digit < 4)
-                {
+                if (digit < 4) {
                     roman.append(digit, tab[i]);
-                }
-                else if (digit == 4)
-                {
+                } else if (digit == 4) {
                     roman += tab[i];
                     roman += tab[i-1];
-                }
-                else if (digit == 5)
-                {
+                } else if (digit == 5) {
                     roman += tab[i-1];
-                }
-                else if (digit < 9)
-                {
+                } else if (digit < 9) {
                     roman += tab[i-1];
                     roman.append(digit-5, tab[i]);
-                }
-                else
-                {
+                } else {
                     roman += tab[i];
                     roman += tab[i-2];
                 }
@@ -47,10 +37,23 @@ class Solution {
             }
             return roman;
         }
+
+        string intToRoman2(int num) {
+            // I - 1, V - 5, X - 10, L - 50, C - 100, D - 500, M - 1000
+            string symbs[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+            int nums[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+            string roman;
+            for (int i = 0; i < 13; i++) {
+                while (num >= nums[i]) {
+                    roman += symbs[i];
+                    num -= nums[i];
+                }
+            }
+            return roman;
+        }
 };
 
-int main()
-{
+int main() {
     Solution solu;
 
     int x = 1024;

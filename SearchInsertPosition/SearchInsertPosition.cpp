@@ -13,24 +13,17 @@ using namespace std;
 
 class Solution {
     public:
-        int binarySearch(int A[], int left, int right, const int target)
-        {
-            if (left > right)
-            {
+        int binarySearch(int A[], int left, int right, const int target) {
+            if (left > right) {
                 return left;
             }
 
             int mid = left + (right-left)/2;
-            if (A[mid] == target)
-            {
+            if (A[mid] == target) {
                 return mid;
-            }
-            else if (A[mid] < target)
-            {
+            } else if (A[mid] < target) {
                 return binarySearch(A, mid+1, right, target);
-            }
-            else
-            {
+            } else {
                 return binarySearch(A, left, mid-1, target);
             }
         }
@@ -42,19 +35,13 @@ class Solution {
         int searchInsert2(int A[], int n, int target) {
             int p = 0;
             int q = n-1;
-            while (p <= q)
-            {
+            while (p <= q) {
                 int m = p + (q-p)/2;
-                if (A[m] == target)
-                {
+                if (A[m] == target) {
                     return m;
-                }
-                else if (A[m] < target)
-                {
+                } else if (A[m] < target) {
                     p = m+1;
-                }
-                else
-                {
+                } else {
                     q = m-1;
                 }
             }
@@ -62,8 +49,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     int A[] = {1, 3, 5, 6};
 
     Solution solu;
