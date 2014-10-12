@@ -10,46 +10,34 @@ using namespace std;
 class Solution {
     public:
         void merge(int A[], int m, int B[], int n) {
-            int t = m+n-1;
-            int p = m-1;
-            int q = n-1;
-            while (p >= 0 && q >= 0)
-            {
-                if (A[p] >= B[q])
-                {
+            int t = m + n - 1;
+            int p = m - 1;
+            int q = n - 1;
+            while (p >= 0 && q >= 0) {
+                if (A[p] >= B[q]) {
                     A[t--] = A[p--];
-                }
-                else
-                {
+                } else {
                     A[t--] = B[q--];
                 }
             }
-            if (p < 0)
-            {
-                while (q >= 0)
-                {
-                    A[t--] = B[q--];
-                }
+            while (q >= 0) {
+                A[t--] = B[q--];
             }
         }
 };
 
-void printArray(int A[], int n)
-{
+void printArray(int A[], int n) {
     cout << "[";
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cout << A[i];
-        if (i < n-1)
-        {
+        if (i < n-1) {
             cout << " ";
         }
     }
     cout << "]" << endl;
 }
 
-int main()
-{
+int main() {
     int A[] = {1, 1, 3, 4, 7, 0, 0, 0, 0};
     int B[] = {1, 4, 5, 9};
 

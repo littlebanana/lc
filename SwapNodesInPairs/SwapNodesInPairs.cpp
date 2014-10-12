@@ -20,10 +20,8 @@ class Solution {
         // For example, if the list is 1->2->3->..., and the head is the pointer to 1
         // after the swap, the list is 1->3->2->...
         // and return the pointer to 2
-        ListNode *swapNode(ListNode *head)
-        {
-            if (head == NULL || head->next == NULL || head->next->next == NULL)
-            {
+        ListNode *swapNode(ListNode *head) {
+            if (head == NULL || head->next == NULL || head->next->next == NULL) {
                 return NULL;
             }
 
@@ -43,8 +41,7 @@ class Solution {
             dummy->next = head;
 
             ListNode *t = dummy;
-            while (t != NULL)
-            {
+            while (t != NULL) {
                 t = swapNode(t);
             }
 
@@ -52,25 +49,43 @@ class Solution {
             delete dummy;
             return head;
         }
+
+        ListNode *swapPairs2(ListNode *head) {
+            if (head == NULL || head->next == NULL) {
+                return head;
+            }
+
+            ListNode *dummy = new ListNode(-1);
+            dummy->next = head;
+            ListNode *tt = dummy;
+            ListNode *t = dummy->next;
+            while (t != NULL && t->next != NULL) {
+                ListNode *tn = t->next;
+                ListNode *tnn = tn->next;
+                tn->next = t;
+                t->next = tnn;
+                tt->next = tn;
+                tt = t;
+                t = t->next;
+            }
+            head = dummy->next;
+            delete dummy;
+            return head;
+        }
 };
 
-void destroyList(ListNode *l)
-{
-    while (l != NULL)
-    {
+void destroyList(ListNode *l) {
+    while (l != NULL) {
         ListNode *tbd = l;
         l = l->next;
         delete tbd;
     }
 }
 
-void printList(ListNode *l)
-{
-    while (l != NULL)
-    {
+void printList(ListNode *l) {
+    while (l != NULL) {
         cout << l->val;
-        if (l->next != NULL)
-        {
+        if (l->next != NULL) {
             cout << "->";
         }
         l = l->next;
@@ -78,8 +93,7 @@ void printList(ListNode *l)
     cout << endl;
 }
 
-int main()
-{
+int main() {
     ListNode *l = new ListNode(1);
     l->next = new ListNode(2);
     l->next->next = new ListNode(3);

@@ -31,6 +31,18 @@ public:
         }
         return code;
     }
+
+    vector<int> grayCode2(int n) {
+        vector<int> code;
+        code.push_back(0);
+        for (int l = 1; l <= n; l++) {
+            int n = code.size();
+            for (int j = 0; j < n; j++) {
+                code.push_back(code[n-1-j] + n);
+            }
+        }
+        return code;
+    }
 };
 
 int main()

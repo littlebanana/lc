@@ -15,24 +15,16 @@ using namespace std;
 class Solution {
     public:
         int reverse(int x) {
-            if (x == 0)
-            {
-                return 0;
-            }
-
             bool sign = (x > 0);
             int y = 0;
-            while (x != 0)
-            {
+            while (x != 0) {
                 int d = x % 10;     // + % 10 = +, - % 10 = -
 
                 // test overflow
-                if (sign && y > (double)(INT_MAX-d)/10.0)
-                {
+                if (sign && y > (double)(INT_MAX-d)/10.0) {
                     return INT_MAX;
                 }
-                if (!sign && y < (double)(INT_MIN-d)/10.0)
-                {
+                if (!sign && y < (double)(INT_MIN-d)/10.0) {
                     return INT_MIN;
                 }
 
@@ -45,8 +37,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     Solution solu;
 
     int x = 0;

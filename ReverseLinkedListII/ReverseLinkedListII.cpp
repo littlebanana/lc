@@ -18,8 +18,7 @@ struct ListNode {
 class Solution {
     public:
         ListNode *reverseBetween(ListNode *head, int m, int n) {
-            if (head == NULL || m == n)
-            {
+            if (head == NULL || m == n) {
                 return head;
             }
 
@@ -27,16 +26,14 @@ class Solution {
 
             int cnt = 1;
             ListNode *tail = NULL;
-            while (cnt < m)
-            {
+            while (cnt < m) {
                 cnt++;
                 tail = (tail == NULL ? head : tail->next);
             }
 
             ListNode *tp = (tail == NULL ? head : tail->next);
             ListNode *t = tp->next;
-            while (n > m)
-            {
+            while (n > m) {
                 ListNode *tn = t->next;
                 t->next = tp;
                 tp = t;
@@ -45,37 +42,58 @@ class Solution {
             }
 
             // now tp points to the last node to be reversed, t points to the next node
-            if (tail == NULL)
-            {
+            if (tail == NULL) {
                 head->next = t;
                 head = tp;
-            }
-            else
-            {
+            } else {
                 tail->next->next = t;
                 tail->next = tp;
             }
             return head;
         }
+
+        ListNode *reverseBetween2(ListNode *head, int m, int n) {
+            if (head == NULL || head->next == NULL || m == n) {
+                return head;
+            }
+
+            ListNode *p = head;
+            ListNode *pp = NULL;
+            int i = 1;
+            for (; i != m; i++) {
+                pp = p;
+                p = p->next;
+            }
+            ListNode *t = p->next;
+            ListNode *tt = p;
+            for (; i != n; i++) {
+                ListNode *tn = t->next;
+                t->next = tt;
+                tt = t;
+                t = tn;
+            }
+            if (pp == NULL) {
+                head = tt;
+            } else {
+                pp->next = tt;
+            }
+            p->next = t;
+            return head;
+        }
 };
 
-void destroyList(ListNode *l)
-{
-    while (l != NULL)
-    {
+void destroyList(ListNode *l) {
+    while (l != NULL) {
         ListNode *tbd = l;
         l = l->next;
         delete tbd;
     }
 }
 
-void printList(ListNode *l)
-{
-    while (l != NULL)
-    {
+void printList(ListNode *l) {
+    while (l != NULL) {
         cout << l->val;
-        if (l->next != NULL)
-        {
+        if (l->next != NULL) {
             cout << "->";
         }
         l = l->next;
@@ -83,8 +101,7 @@ void printList(ListNode *l)
     cout << endl;
 }
 
-int main()
-{
+int main() {
     ListNode *l = new ListNode(1);
     l->next = new ListNode(2);
     l->next->next = new ListNode(3);

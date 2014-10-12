@@ -14,35 +14,27 @@ using namespace std;
 class Solution {
     public:
         string countAndSay(int n) {
-            if (n <= 0)
-            {
+            if (n <= 0) {
                 return "";
             }
 
             string code = "1";
-            for (int i = 2; i <= n; i++)
-            {
+            for (int i = 2; i <= n; i++) {
                 // count and say the previous string
                 string next("");
                 int l = code.length();
-                char num = code[0];
                 int cnt = 1;
-                for (int j = 1; j < l; j++)
-                {
-                    if (code[j] != num)
-                    {
+                for (int j = 1; j < l; j++) {
+                    if (code[j] != code[j-1]) {
                         next += (cnt + '0');
-                        next += num;
-                        num = code[j];
+                        next += code[j-1];
                         cnt = 1;
-                    }
-                    else
-                    {
+                    } else {
                         cnt++;
                     }
                 }
                 next += (cnt+'0');
-                next += num;
+                next += code[l-1];
 
                 code = next;
             }
@@ -50,8 +42,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     int n = 4;
 
     Solution solu;

@@ -16,8 +16,7 @@ class Solution {
             int sum = 0;        // sum[i] = A[0] + .. + A[i]
             int minsum = 0;     // minsum[i] = min_{-1<=j<i}sum[j]
             int maxsum = A[0];
-            for (int i = 0; i < n; i++)
-            {
+            for (int i = 0; i < n; i++) {
                 sum += A[i];
                 maxsum = max(maxsum, sum-minsum);
                 minsum = min(minsum, sum);
@@ -25,14 +24,11 @@ class Solution {
             return maxsum;
         }
 
-        int maxSub(int A[], int left, int right)
-        {
-            if (left == right)
-            {
+        int maxSub(int A[], int left, int right) {
+            if (left == right) {
                 return A[left];
             }
-            if (left+1 == right)
-            {
+            if (left+1 == right) {
                 int m = max(A[left], A[right]);
                 return max(m, A[left]+A[right]);
             }
@@ -46,14 +42,12 @@ class Solution {
             // combine
             int mmax = A[mid];
             int sum = mmax;
-            for (int i = mid-1; i >= left; i--)
-            {
+            for (int i = mid-1; i >= left; i--) {
                 sum += A[i];
                 mmax = max(mmax, sum);
             }
             sum = mmax;
-            for (int i = mid+1; i <= right; i++)
-            {
+            for (int i = mid+1; i <= right; i++) {
                 sum += A[i];
                 mmax = max(mmax, sum);
             }
@@ -67,8 +61,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     int A[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
     Solution solu;
