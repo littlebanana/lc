@@ -24,22 +24,16 @@ class Solution {
 
             // num[i][j] = num[i-1][j] + num[i][j-1]
             int num[n];     // num[i]
-            for (int i = 0; i < m; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    if (obstacleGrid[i][j] == 1)
-                    {
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (obstacleGrid[i][j] == 1) {
                         num[j] = 0;
                         continue;
                     }
 
-                    if (i == 0)
-                    {
+                    if (i == 0) {
                         num[j] = (j == 0 ? 1 : num[j-1]);
-                    }
-                    else
-                    {
+                    } else {
                         num[j] += (j == 0 ? 0 : num[j-1]);
                     }
                 }
@@ -48,8 +42,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     vector<vector<int> > obstacleGrid;
     int r1[] = {0, 0, 0};
     obstacleGrid.push_back(vector<int>(r1,r1+3));

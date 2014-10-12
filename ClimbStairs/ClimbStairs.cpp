@@ -9,8 +9,7 @@ using namespace std;
 class Solution {
 public:
     int climbStairs(int n) {
-        if (n < 2)
-        {
+        if (n < 2) {
             return 1;
         }
         
@@ -18,8 +17,7 @@ public:
         // Fibonacci's squence
         int pp = 1;     // # of ways for i-2 steps
         int p = 1;      // # of ways for i-1 steps
-        for (int i = 2; i <= n; i++)
-        {
+        for (int i = 2; i <= n; i++) {
             int ways = pp + p;
             pp = p;
             p = ways;
@@ -28,8 +26,7 @@ public:
     }
 };
 
-int main()
-{
+int main() {
     Solution solu;
     int n = 3;
     cout << "n = " << n << ", # of ways = " << solu.climbStairs(n) << endl;

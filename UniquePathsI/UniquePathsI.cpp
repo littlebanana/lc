@@ -10,38 +10,31 @@ using namespace std;
 
 class Solution {
 public:
-    int C1(int n, int k)
-    {
-        if (k == 0 || k == n)
-        {
+    int C1(int n, int k) {
+        if (k == 0 || k == n) {
             return 1;
         }
         
-        int nmk = n-k;
+        int nmk = n - k;
         k = (nmk > k ? k : nmk);
-        if (k == 1)
-        {
+        if (k == 1) {
             return n;
         }
         
         long long int did = n;
-        for (int i = 1; i < k; i++)
-        {
+        for (int i = 1; i < k; i++) {
             did *= (n-i);
         }
         long long int div = 1;
-        for (int i = 2; i <= k; i++)
-        {
+        for (int i = 2; i <= k; i++) {
             div *= i;
         }
-        return (int)(did/div);
+        return (int)(did / div);
     }
 
-    int gcd(int a, int b)
-    {
+    int gcd(int a, int b) {
         // Euclidean algorithm
-        while (b != 0)
-        {
+        while (b != 0) {
             int c = a % b;
             a = b;
             b = c;
@@ -49,22 +42,18 @@ public:
         return a;
     }
 
-    int C2(int n, int k)
-    {
-        if (k == 0 || k == n)
-        {
+    int C2(int n, int k) {
+        if (k == 0 || k == n) {
             return 1;
         }
         
         k = ((n-k) > k ? k : (n-k));
-        if (k == 1)
-        {
+        if (k == 1) {
             return n;
         }
 
         int result = 1;
-        for (int i = 1; i <= k; i++)
-        {
+        for (int i = 1; i <= k; i++) {
             int did = (n-i+1);
             int div = i;
             int c = gcd(did, div);      // tricky, not fully understand
@@ -76,8 +65,7 @@ public:
         return result;
     }
 
-    inline int C(int n, int k)
-    {
+    inline int C(int n, int k) {
         return C2(n, k);
     }
 
@@ -88,24 +76,18 @@ public:
 
     // Approach 2: Dynamic programming
     int uniquePaths2(int m, int n) {
-        if (m < n)
-        {
+        if (m < n) {
             swap(m, n);
         }
         
         // num[i][j] = num[i-1][j] + num[i][j-1]
         int num[n];     // num[i]
-        for (int i = 0; i < m; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                if (i == 0)
-                {
-                    num[j] = (j == 0 ? 1 : num[j-1]);
-                }
-                else
-                {
-                    num[j] += (j == 0 ? 0 : num[j-1]);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 || j == 0) {
+                    num[j] = 1;
+                } else {
+                    num[j] += num[j-1];
                 }
             }
         }
@@ -113,8 +95,7 @@ public:
     }
 };
 
-int main()
-{
+int main() {
     Solution solu;
     cout << solu.uniquePaths2(10, 10) << endl;
 

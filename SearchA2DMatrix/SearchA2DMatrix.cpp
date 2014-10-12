@@ -17,32 +17,23 @@ using namespace std;
 
 class Solution {
     public:
-        bool binarySearch(const vector<int> &row, const int target, int left, int right)
-        {
-            if (left > right)
-            {
+        bool binarySearch(const vector<int> &row, const int target, int left, int right) {
+            if (left > right) {
                 return false;
             }
 
             int mid = left + (right-left)/2;
-            if (target == row[mid])
-            {
+            if (target == row[mid]) {
                 return true;
-            }
-            else if (target < row[mid])
-            {
+            } else if (target < row[mid]) {
                 return binarySearch(row, target, left, mid-1);
-            }
-            else
-            {
+            } else {
                 return binarySearch(row, target, mid+1, right);
             }
         }
 
-        bool search(const vector<vector<int> > &matrix, const int target, int top, int bottom)
-        {
-            if (top > bottom)
-            {
+        bool search(const vector<vector<int> > &matrix, const int target, int top, int bottom) {
+            if (top > bottom) {
                 return false;
             }
 
@@ -51,13 +42,9 @@ class Solution {
             if (target < matrix[mid][0])
             {
                 return search(matrix, target, top, mid-1);
-            }
-            else if (target > matrix[mid][n-1])
-            {
+            } else if (target > matrix[mid][n-1]) {
                 return search(matrix, target, mid+1, bottom);
-            }
-            else
-            {
+            } else {
                 return binarySearch(matrix[mid], target, 0, n-1);
             }
         }
@@ -69,8 +56,7 @@ class Solution {
 
         // Iterative
         bool searchMatrix2(vector<vector<int> > &matrix, int target) {
-            if (matrix.empty() || matrix[0].empty())
-            {
+            if (matrix.empty() || matrix[0].empty()) {
                 return false;
             }
 
@@ -78,34 +64,22 @@ class Solution {
             int n = matrix[0].size();
             int top = 0;
             int bottom = m-1;
-            while (top <= bottom)
-            {
+            while (top <= bottom) {
                 int midr = top + (bottom-top)/2;
-                if (target < matrix[midr][0])
-                {
+                if (target < matrix[midr][0]) {
                     bottom = midr-1;
-                }
-                else if (target > matrix[midr][n-1])
-                {
+                } else if (target > matrix[midr][n-1]) {
                     top = midr+1;
-                }
-                else
-                {
+                } else {
                     int left = 0;
                     int right = n-1;
-                    while (left <= right)
-                    {
+                    while (left <= right) {
                         int midc = left + (right-left)/2;
-                        if (target == matrix[midr][midc])
-                        {
+                        if (target == matrix[midr][midc]) {
                             return true;
-                        }
-                        else if (target < matrix[midr][midc])
-                        {
+                        } else if (target < matrix[midr][midc]) {
                             right = midc-1;
-                        }
-                        else
-                        {
+                        } else {
                             left = midc+1;
                         }
                     }
@@ -114,10 +88,48 @@ class Solution {
             }
             return false;
         }
+
+        bool searchMatrix3(vector<vector<int> > &matrix, int target) {
+            if (matrix.empty() || matrix[0].empty()) {
+                return false;
+            }
+
+            int m = matrix.size();
+            int n = matrix[0].size();
+
+            int t = 0;
+            int b = m - 1;
+            int row = -1;
+            while (t <= b) {
+                row = t + (b - t) / 2;
+                if (target >= matrix[row][0] && target <= matrix[row][n-1]) {
+                    break;
+                } else if (target < matrix[row][0]) {
+                    b = row - 1;
+                } else {
+                    t = row + 1;
+                }
+            }
+            if (t > b) {
+                return false;
+            }
+            int l = 0;
+            int r = n - 1;
+            while (l <= r) {
+                int col = l + (r - l) / 2;
+                if (target == matrix[row][col]) {
+                    return true;
+                } else if (target < matrix[row][col]) {
+                    r = col - 1;
+                } else {
+                    l = col + 1;
+                }
+            }
+            return false;
+        }
 };
 
-int main()
-{
+int main() {
     vector<vector<int> > matrix;
 
     int r1[] = {1,   3,  5,  7};

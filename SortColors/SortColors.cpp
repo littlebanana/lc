@@ -18,36 +18,28 @@ class Solution {
             // Dutch Flag Partition
             int red = -1;
             int blue = n;
-            for (int i = 0; i < blue; i++)
-            {
-                if (A[i] == 0)  // red
-                {
+            for (int i = 0; i < blue; i++) {
+                if (A[i] == 0) {
                     swap(A[i], A[++red]);
-                }
-                else if (A[i] == 2)     // blue
-                {
+                } else if (A[i] == 2) {
                     swap(A[i--], A[--blue]);    // remember to decrement i for a double check at same location next iteration
                 }
             }
         }
 };
 
-void printArray(int A[], int n)
-{
+void printArray(int A[], int n) {
     cout << "[";
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cout << A[i];
-        if (i < n-1)
-        {
+        if (i < n-1) {
             cout << " ";
         }
     }
     cout << "]" << endl;
 }
 
-int main()
-{
+int main() {
     int A[] = {0, 1, 1, 2, 0, 2, 1, 1, 0, 2};
     printArray(A, 10);
 
