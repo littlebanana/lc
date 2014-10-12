@@ -30,12 +30,10 @@ class Solution {
             sets.push_back(empty);
             int N = S.size();
             int idx = 0;      // start index to intersect
-            for (int i = 0; i < N; i++)
-            {
+            for (int i = 0; i < N; i++) {
                 int n = sets.size();
                 idx = (i > 0 && sorted[i] == sorted[i-1]) ? idx : 0;
-                for (int j = idx; j < n; j++)
-                {
+                for (int j = idx; j < n; j++) {
                     vector<int> tmp = sets[j];
                     tmp.push_back(sorted[i]);
                     sets.push_back(tmp);
@@ -45,15 +43,13 @@ class Solution {
             return sets;
         }
 
-        void generate(const vector<int> &S, int left, vector<int> &subset, vector<vector<int> > &sets)
-        {
+        void generate(const vector<int> &S, int left, vector<int> &subset, vector<vector<int> > &sets) {
             sets.push_back(subset);
 
             int n = S.size();
-            for (int i = left; i < n; i++)
-            {
-                if (i > left && S[i] == S[i-1]) // only allow head to intersect with the same element
-                {
+            for (int i = left; i < n; i++) {
+                // only allow head to intersect with the same element
+                if (i > left && S[i] == S[i-1]) {
                     continue;
                 }
                 vector<int> tmp = subset;
@@ -73,8 +69,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     vector<int> S(3);
     S[0] = 1;
     S[1] = 2;
@@ -83,14 +78,11 @@ int main()
 
     vector<vector<int> > sets = solu.subsetsWithDup1(S);
 
-    for (int i = 0; i < sets.size(); i++)
-    {
+    for (int i = 0; i < sets.size(); i++) {
         cout << "[";
-        for (int j = 0; j < sets[i].size(); j++)
-        {
+        for (int j = 0; j < sets[i].size(); j++) {
             cout << sets[i][j];
-            if (j < sets[i].size()-1)
-            {
+            if (j < sets[i].size()-1) {
                 cout << " ";
             }
         }

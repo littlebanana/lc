@@ -14,12 +14,10 @@ using namespace std;
 class Solution {
 public:
     ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-        if (l1 == NULL)
-        {
+        if (l1 == NULL) {
             return l2;
         }
-        if (l2 == NULL)
-        {
+        if (l2 == NULL) {
             return l1;
         }
         
@@ -27,23 +25,18 @@ public:
         ListNode *p = (l1->val > l2->val ? l1 : l1->next);
         ListNode *q = (l1->val > l2->val ? l2->next : l2);
         ListNode *t = head;
-        while (p != NULL && q != NULL)
-        {
-            if (p->val > q->val)
-            {
+        while (p != NULL && q != NULL) {
+            if (p->val > q->val) {
                 t->next = q;
                 q = q->next;
                 t = t->next;
-            }
-            else
-            {
+            } else {
                 t->next = p;
                 p = p->next;
                 t = t->next;
             }
         }
-        if (p == NULL)
-        {
+        if (p == NULL) {
             p = q;
         }
         t->next = p;
@@ -51,23 +44,18 @@ public:
     }
 };
 
-void destroyList(ListNode *l)
-{
-    while (l != NULL)
-    {
+void destroyList(ListNode *l) {
+    while (l != NULL) {
         ListNode *tbd = l;
         l = l->next;
         delete tbd;
     }
 }
 
-void printList(ListNode *l)
-{
-    while (l != NULL)
-    {
+void printList(ListNode *l) {
+    while (l != NULL) {
         cout << l->val;
-        if (l->next != NULL)
-        {
+        if (l->next != NULL) {
             cout << "->";
         }
         l = l->next;
@@ -75,8 +63,7 @@ void printList(ListNode *l)
     cout << endl;
 }
 
-int main()
-{
+int main() {
     ListNode *l1 = new ListNode(2);
     l1->next = new ListNode(4);
     l1->next->next = new ListNode(7);

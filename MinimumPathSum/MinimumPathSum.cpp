@@ -13,21 +13,16 @@ class Solution {
             int n = grid[0].size();
 
             int sum[n];
-            sum[0] = grid[0][0];
-            for (int j = 1; j < n; j++)         // sum[i=0][j]
-            {
-                sum[j] = sum[j-1] + grid[0][j];
-            }
-            for (int i = 1; i < m; i++)
-            {
+            for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++)
                 {
-                    if (j == 0)
-                    {
+                    if (i == 0 && j == 0) {
+                        sum[j] = grid[i][j];
+                    } else if (i == 0) {
+                        sum[j] = sum[j-1] + grid[i][j];
+                    } else if (j == 0) {
                         sum[j] += grid[i][j];
-                    }
-                    else
-                    {
+                    } else {
                         sum[j] = min(sum[j-1], sum[j]) + grid[i][j];
                     }
                 }
@@ -36,8 +31,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     vector<vector<int> > grid;
     int r1[] = {1, 2, 3};
     grid.push_back(vector<int>(r1,r1+3));

@@ -18,6 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -32,11 +33,9 @@ class Solution {
             vector<int> empty;
             vector<vector<int> > sets;
             sets.push_back(empty);
-            for (int i = 0; i < N; i++)
-            {
+            for (int i = 0; i < N; i++) {
                 int n = sets.size();
-                for (int j = 0; j < n; j++)
-                {
+                for (int j = 0; j < n; j++) {
                     vector<int> tmp = sets[j];
                     tmp.push_back(sorted[i]);
                     sets.push_back(tmp);
@@ -46,17 +45,14 @@ class Solution {
         }
 
         // Approach 2: recursive selection
-        void chooseK(const vector<int> &S, int left, int k, vector<int> &subset, vector<vector<int> > &sets)
-        {
-            if (k == 0)
-            {
+        void chooseK(const vector<int> &S, int left, int k, vector<int> &subset, vector<vector<int> > &sets) {
+            if (k == 0) {
                 sets.push_back(subset);
                 return;
             }
 
             int n = S.size();
-            for (int i = left; i < n; i++)
-            {
+            for (int i = left; i < n; i++) {
                 vector<int> tmp = subset;
                 tmp.push_back(S[i]);
                 chooseK(S, i+1, k-1, tmp, sets);
@@ -68,8 +64,7 @@ class Solution {
             sort(sorted.begin(), sorted.end());
             vector<vector<int> > sets;
             int n = sorted.size();
-            for (int k = 0; k <= n; k++)
-            {
+            for (int k = 0; k <= n; k++) {
                 vector<int> tmp;
                 chooseK(sorted, 0, k, tmp, sets);
             }
@@ -77,13 +72,11 @@ class Solution {
         }
 
         // Approach 3: recursive generation
-        void generate(const vector<int> &S, int left, vector<int> &subset, vector<vector<int> > &sets)
-        {
+        void generate(const vector<int> &S, int left, vector<int> &subset, vector<vector<int> > &sets) {
             sets.push_back(subset);
 
             int n = S.size();
-            for (int i = left; i < n; i++)
-            {
+            for (int i = left; i < n; i++) {
                 vector<int> tmp = subset;
                 tmp.push_back(S[i]);
                 generate(S, i+1, tmp, sets);
@@ -98,10 +91,30 @@ class Solution {
             generate(sorted, 0, empty, sets);
             return sets;
         }
+
+        vector<vector<int> > subsets4(vector<int> &S) {
+            int n = S.size();
+            int L = pow(2, n);
+            sort(S.begin(), S.end());
+            vector<vector<int> > sets;
+            for (int i = 0; i < L; i++) {
+                vector<int> set;
+                int b = 0;
+                unsigned int ii = i;
+                while (ii != 0) {
+                    if (ii & 1) {
+                        set.push_back(S[b]);
+                    }
+                    ii >>= 1;
+                    b++;
+                }
+                sets.push_back(set);
+            }
+            return sets;
+        }
 };
 
-int main()
-{
+int main() {
     vector<int> S(3);
     S[0] = 0;
     S[1] = 4;
@@ -110,14 +123,11 @@ int main()
     Solution solu;
     vector<vector<int> > sets = solu.subsets1(S);
 
-    for (int i = 0; i < sets.size(); i++)
-    {
+    for (int i = 0; i < sets.size(); i++) {
         cout << "[";
-        for (int j = 0; j < sets[i].size(); j++)
-        {
+        for (int j = 0; j < sets[i].size(); j++) {
             cout << sets[i][j];
-            if (j < sets[i].size()-1)
-            {
+            if (j < sets[i].size()-1) {
                 cout << " ";
             }
         }
