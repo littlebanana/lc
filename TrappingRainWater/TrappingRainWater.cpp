@@ -12,14 +12,11 @@ class Solution {
         int trap(int A[], int n) {
             int sum = 0;
             stack<int> stk;
-            for (int i = 0; i < n; i++)
-            {
-                if (stk.empty() || A[stk.top()] > A[i])
-                {
+            for (int i = 0; i < n; i++) {
+                if (stk.empty() || A[stk.top()] > A[i]) {
                     stk.push(i);
-                }
-                else    // only when a higher bar appears, rain can be trapped
-                {
+                } else {
+                    // only when a higher bar appears, rain can be trapped
                     int bottom = A[stk.top()];  // bottom of the bucket
                     stk.pop();
                     sum += (stk.empty() ? 0 : (i-stk.top()-1)*(min(A[stk.top()], A[i])-bottom));
@@ -30,8 +27,7 @@ class Solution {
         }
 };
 
-int main()
-{
+int main() {
     int A[] = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
 
     Solution solu;
